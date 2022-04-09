@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using NativeLibrary = NativeLibraryLoader.NativeLibrary;
 
 namespace Veldrid.Sdl2
 {
@@ -51,17 +52,7 @@ namespace Veldrid.Sdl2
         /// </exception>
         public static T LoadFunction<T>(string name)
         {
-            try
-            {
-                return s_sdl2Lib.LoadFunction<T>(name);
-            }
-            catch
-            {
-                Debug.WriteLine(
-                    $"Unable to load SDL2 function \"{name}\". " +
-                    $"Attempting to call this function will cause an exception to be thrown.");
-                return default(T);
-            }
+            return s_sdl2Lib.LoadFunction<T>(name);
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
